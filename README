@@ -1,0 +1,18 @@
+These are the fonts used on the Nokia 3310 phone.  I've reconstructed them by
+hand, by looking at the screen and drawing the characters as I see them into
+GIMP, and then done some processing to make this actually useful.
+
+Use the .c files, as the textual representation doesn't have all the information
+in it (some characters don't have a 1px space to the right of them).  I've added
+it back in manually.
+
+I've found this useful in VIM to highlight the zeros:
+	:highlight mygroup ctermbg=red
+	:match mygroup /0/
+
+If you intend to render the fonts in your application, see nokia-fonts.c and the
+related tools that use this file.
+
+There are also some BDF files provided, so that you can e.g. create a TTF file
+by converting them using fontforge and happily use the fonts wherever you like.
+
