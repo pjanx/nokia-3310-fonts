@@ -1,28 +1,32 @@
-struct nokia_menu_char
-{
-	short width;
-	short advance;
-	unsigned char rows[6];
-};
+/*
+ * nokia-fonts.c: Nokia 3310 fonts
+ *
+ * Copyright (c) 2013, Přemysl Janouch <p.janouch@gmail.com>
+ * All rights reserved.
+ *
+ * Permission to use, copy, modify, and/or distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+ * SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+ * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
+ * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ *
+ */
 
-struct nokia_small_char
-{
-	short width;
-	short advance;
-	unsigned char rows[8];
-};
+#include <wchar.h>
+#include <stdio.h>
+
+#include "nokia-fonts.h"
 
 struct nokia_small_char_wide
 {
 	wchar_t code;
 	struct nokia_small_char ch;
-};
-
-struct nokia_big_char
-{
-	short width;
-	short advance;
-	unsigned short rows[13];
 };
 
 struct nokia_big_char_wide
@@ -31,7 +35,7 @@ struct nokia_big_char_wide
 	struct nokia_big_char ch;
 };
 
-struct nokia_big_char
+static struct nokia_big_char
 nokia_big_data[] =
 {
 	{  3,  4, { 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
@@ -102,7 +106,7 @@ nokia_big_data[] =
 				0xa500, 0x9a00, 0x4080, 0x3f00, 0x0000, 0x0000 } }, // @
 	{  7,  8, { 0x7c00, 0xc600, 0xc600, 0xc600, 0xc600, 0xc600, 0xc600,
 				0xfe00, 0xc600, 0xc600, 0xc600, 0x0000, 0x0000 } }, // A
-	{  7,  8, { 0xfc00, 0xc600, 0xc600, 0xc600, 0xf800, 0xc600, 0xc600,
+	{  7,  8, { 0xfc00, 0xc600, 0xc600, 0xc600, 0xfc00, 0xc600, 0xc600,
 				0xc600, 0xc600, 0xc600, 0xfc00, 0x0000, 0x0000 } }, // B
 	{  6,  7, { 0x7800, 0xcc00, 0xc000, 0xc000, 0xc000, 0xc000, 0xc000,
 				0xc000, 0xc000, 0xcc00, 0x7800, 0x0000, 0x0000 } }, // C
@@ -226,27 +230,27 @@ nokia_big_data[] =
 				0x4c00, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 } }  // ~
 };
 
-struct nokia_big_char_wide
+static struct nokia_big_char_wide
 nokia_big_wide_data[] =
 {
 	{ L'€', { 11, 12, { 0x0780, 0x1ce0, 0x3820, 0x3000, 0xffc0, 0x3000, 0xff80,
-	        			0x3000, 0x3820, 0x1ce0, 0x0780, 0x0000, 0x0000 } }, // euro
+	        			0x3000, 0x3820, 0x1ce0, 0x0780, 0x0000, 0x0000 } } }, // euro
 	{ L'£', {  7,  8, { 0x3800, 0x6c00, 0x6000, 0x6000, 0x6000, 0xf800, 0x6000,
-	        			0x6000, 0x6000, 0x6600, 0xfc00, 0x0000, 0x0000 } }, // pound
+	        			0x6000, 0x6000, 0x6600, 0xfc00, 0x0000, 0x0000 } } }, // pound
 	{ L'¥', {  8,  9, { 0xc300, 0xc300, 0x6600, 0x6600, 0xff00, 0x1800, 0xff00,
-	        			0x1800, 0x1800, 0x1800, 0x1800, 0x0000, 0x0000 } }, // yen
+	        			0x1800, 0x1800, 0x1800, 0x1800, 0x0000, 0x0000 } } }, // yen
 	{ L'¤', {  9, 10, { 0x0000, 0x8080, 0x5d00, 0x2200, 0x4100, 0x4100, 0x4100,
-	        			0x2200, 0x5d00, 0x8080, 0x0000, 0x0000, 0x0000 } }, // currency
+	        			0x2200, 0x5d00, 0x8080, 0x0000, 0x0000, 0x0000 } } }, // currency
 	{ L'¿', {  6,  7, { 0x3000, 0x3000, 0x0000, 0x3000, 0x3000, 0x6000, 0xc000,
-	        			0xc000, 0xc400, 0xc400, 0x7800, 0x0000, 0x0000 } }, // inverted ?
+	        			0xc000, 0xc400, 0xc400, 0x7800, 0x0000, 0x0000 } } }, // inverted ?
 	{ L'¡', {  2,  3, { 0xc000, 0xc000, 0x0000, 0xc000, 0xc000, 0xc000, 0xc000,
-	        			0xc000, 0xc000, 0xc000, 0xc000, 0x0000, 0x0000 } }, // inverted !
+	        			0xc000, 0xc000, 0xc000, 0xc000, 0x0000, 0x0000 } } }, // inverted !
 	{ L'§', {  6,  7, { 0x3800, 0x6c00, 0x6c00, 0x6000, 0xf000, 0xd800, 0xcc00,
-	        			0x6c00, 0x3c00, 0x1800, 0xd800, 0xd800, 0x7000 } }  // section
+	        			0x6c00, 0x3c00, 0x1800, 0xd800, 0xd800, 0x7000 } } }  // section
 };
 
-struct nokia_menu_char
-nokia_menu_char_data[] =
+static struct nokia_menu_char
+nokia_menu_data[] =
 {
 	{  2,  3, { 0x00, 0x00, 0x00, 0xc0, 0x00, 0x00 } }, // -
 	{  1,  2, { 0x00, 0x00, 0x00, 0x00, 0x00, 0x80 } }, // .
@@ -263,8 +267,8 @@ nokia_menu_char_data[] =
 	{  5,  6, { 0x70, 0xd8, 0xd8, 0x78, 0x18, 0x70 } }  // 9
 };
 
-struct nokia_small_char
-nokia_small_char_data[] =
+static struct nokia_small_char
+nokia_small_data[] =
 {
 	{  3,  4, { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } }, // space
 	{  1,  2, { 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x80, 0x00 } }, // !
@@ -363,7 +367,7 @@ nokia_small_char_data[] =
 	{  6,  7, { 0x00, 0x00, 0x00, 0x64, 0x98, 0x00, 0x00, 0x00 } }  // ~
 };
 
-struct nokia_small_char_wide
+static struct nokia_small_char_wide
 nokia_small_wide_data[] =
 {
 	{ L'€', {  6,  7, { 0x00, 0x38, 0x44, 0xf8, 0xf0, 0x44, 0x38, 0x00 } } }, // euro
@@ -375,7 +379,7 @@ nokia_small_wide_data[] =
 	{ L'§', {  3,  4, { 0x40, 0xa0, 0xc0, 0xa0, 0xa0, 0x60, 0xa0, 0x40 } } }, // section
 };
 
-struct nokia_small_char
+static struct nokia_small_char
 nokia_small_bold_data[] =
 {
 	{  3,  4, { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } }, // space
@@ -470,10 +474,10 @@ nokia_small_bold_data[] =
 	{  5,  6, { 0x00, 0x00, 0xd8, 0xd8, 0xd8, 0x78, 0x18, 0x70 } }, // y
 	{  5,  6, { 0x00, 0x00, 0xf8, 0x30, 0x60, 0xc0, 0xf8, 0x00 } }, // z
 	{  3,  4, { 0x20, 0x40, 0xc0, 0xc0, 0xc0, 0xc0, 0x40, 0x20 } }, // {
-	{  2,  3, { 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0 } }, // |
-	{  3,  4, { 0x80, 0x40, 0x60, 0x60, 0x60, 0x60, 0x40, 0x80 } }, // }
+	{  3,  4, { 0x80, 0x40, 0x60, 0x60, 0x60, 0x60, 0x40, 0x80 } }, // |
+	{  2,  3, { 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0 } }, // }
 	{  6,  7, { 0x00, 0x00, 0x00, 0x64, 0xfc, 0x98, 0x00, 0x00 } }  // ~
-}
+};
 
 struct nokia_small_char_wide
 nokia_small_bold_wide_data[] =
@@ -486,3 +490,39 @@ nokia_small_bold_wide_data[] =
 	{ L'¡', {  2,  3, { 0xc0, 0x00, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0x00 } } }, // inverted !
 	{ L'§', {  4,  5, { 0x60, 0xd0, 0xe0, 0xb0, 0xd0, 0x70, 0xb0, 0x60 } } }, // section
 };
+
+#define NOKIA_DEFINE_GETTER(type, name, from, to)                 \
+	type *                                                        \
+	nokia_get_ ## name ## _char (char ch)                         \
+	{                                                             \
+		if (ch < from || ch > to)                                 \
+			return NULL;                                          \
+		return &nokia_ ## name ## _data[ch - from];               \
+	}
+
+#define NOKIA_DEFINE_WIDE_GETTER(type, name)                      \
+	type *                                                        \
+	nokia_get_ ## name ## _char_wide (wchar_t ch)                 \
+	{                                                             \
+		unsigned i;                                               \
+		int c;                                                    \
+		for (i = 0; i < sizeof nokia_ ## name ## _wide_data       \
+				/ sizeof nokia_ ## name ## _wide_data[0]; i++)    \
+			if (nokia_ ## name ## _wide_data[i].code == ch)       \
+				return &nokia_ ## name ## _wide_data[i].ch;       \
+		c = wctob (ch);                                           \
+		return c == EOF ? NULL : nokia_get_ ## name ## _char (c); \
+	}
+
+NOKIA_DEFINE_GETTER (struct nokia_menu_char,  menu,       '-', '9')
+NOKIA_DEFINE_GETTER (struct nokia_small_char, small,      ' ', '~')
+NOKIA_DEFINE_GETTER (struct nokia_small_char, small_bold, ' ', '~')
+NOKIA_DEFINE_GETTER (struct nokia_big_char,   big,        ' ', '~')
+
+NOKIA_DEFINE_WIDE_GETTER (struct nokia_small_char, small)
+NOKIA_DEFINE_WIDE_GETTER (struct nokia_small_char, small_bold)
+NOKIA_DEFINE_WIDE_GETTER (struct nokia_big_char,   big)
+
+#undef NOKIA_DEFINE_GETTER
+#undef NOKIA_DEFINE_WIDE_GETTER
+
