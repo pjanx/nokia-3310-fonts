@@ -8,7 +8,7 @@ information you shouldn't need to care about.
 Accented characters not included.  Some of them are over here, should you wish
 to add them yourself: http://www.dafont.com/nokia-cellphone.font
 
-Use the nokia-fonts.c, as the textual representation doesn't specify the real
+Use nokia-fonts.c, as the textual representation doesn't specify the real
 horizontal advance for the characters (some of them don't have a 1px space to
 the right of them).  I've fixed this manually.
 

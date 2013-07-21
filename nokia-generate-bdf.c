@@ -177,8 +177,8 @@ generate_menu_font (void)
 	{
 		struct nokia_menu_char *ch = &nokia_menu_data[i];
 
-		printf ("STARTCHAR U+%04X\n", '/' + i);
-		printf ("ENCODING %d\n", '/' + i);
+		printf ("STARTCHAR U+%04X\n", '-' + i);
+		printf ("ENCODING %d\n", '-' + i);
 		printf ("SWIDTH %d 0\n", (int) (.5 + 1000. * ch->advance / 6.));
 		printf ("DWIDTH %d\n", ch->advance);
 		printf ("BBX %d 6 0 0\n", ch->width);
